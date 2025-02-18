@@ -1,53 +1,52 @@
-import { before } from "node:test";
-import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from '../../products/entities/product.entity';
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Product } from '../../products/entities';
 
 
 @Entity('users')
 export class User {
-
+    
     @PrimaryGeneratedColumn('uuid')
-    id : string;
+    id: string;
 
-    @Column('text',{
+    @Column('text', {
         unique: true
     })
+    email: string;
 
-    @Column('text')
-    email : string
-
-    @Column('text',{
-        select : false
+    @Column('text', {
+        select: false
     })
-    password : string
+    password: string;
 
     @Column('text')
-    fullName : string
+    fullName: string;
 
-    @Column('bool',{
+    @Column('bool', {
         default: true
     })
-    isActive : boolean
+    isActive: boolean;
 
-    @Column('text',{
+    @Column('text', {
         array: true,
-        default : ['user']
+        default: ['user']
     })
-    roles : string[];
+    roles: string[];
 
-    @OneToMany( 
+    @OneToMany(
         () => Product,
-        (product ) => product.user
+        ( product ) => product.user
     )
-    product:Product
-    
+    product: Product;
+
+
     @BeforeInsert()
-    checkFieldsBeforeInsert(){
+    checkFieldsBeforeInsert() {
         this.email = this.email.toLowerCase().trim();
     }
 
-    @BeforeUpdate( )
-    checkFieldsBeforeUpdate(){
-        this.checkFieldsBeforeInsert()
+    @BeforeUpdate()
+    checkFieldsBeforeUpdate() {
+        this.checkFieldsBeforeInsert();   
     }
+
 }

@@ -25,7 +25,7 @@ import passport from 'passport';
         // console.log('JWT SECRET', configService.get('JWT_SECRET '))
         // console.log('JWT SECRET', process.env.JWT_SECRET)
         return{
-          secret: configService.get('JWT_SERVICE'),
+          secret: configService.get('JWT_SECRET'),
           signOptions: {
             expiresIn:'2h'
           }
